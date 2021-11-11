@@ -1,6 +1,6 @@
 # RGB-DepthFacialRecognitionIdentification
 <b>Students:</b> Ilmar Uduste, Eslem Güler, Christian Johansen
-<b>Course:</b> Computer Vision, POVa, Brno University of Technology
+<br><b>Course:</b> Computer Vision, POVa, Brno University of Technology
 
 ## Project plan
 <ol>
