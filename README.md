@@ -25,10 +25,11 @@
       <li>Train Neural Network on split dataset</li>
       <li>Export model</li>
     </ol>
-<li>Develop an application or Jupyter Notebook that uses the model, takes an input of an image and then outputs the name, emotion, gender etc of the person.</li>
+  <li>Develop an application or Jupyter Notebook that uses the model, takes an input of an image and then outputs the name, emotion, gender etc of the person.</li>
     <ol>Develop prototype in Jupyter Notebook that does the same OpenCV magic before it feeds that information into the NN model and gets an output
       <li>(Optional) Display the output in a window</li>
       <li>(Optional) Have an input of a video and a continuous output (only achievable if performance is good enough).</li>
       <li>Verification</li>
     </ol>
-Present our project in December</ol>
+  <li>Present our project in December</li>
+</ol>
