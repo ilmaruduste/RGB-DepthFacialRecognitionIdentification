@@ -80,5 +80,5 @@ def record_rgbd():
     return color_image, depth_image
 
 
-if _name_ == "_main_":
+if __name__ == "__main__":
     record_rgbd()
