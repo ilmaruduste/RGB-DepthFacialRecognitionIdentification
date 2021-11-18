@@ -3,7 +3,12 @@ import numpy as np
 import pyrealsense2 as rs
 import os
 import shutil
+import argparse
 
+my_parser = argparse.ArgumentParser()
+my_parser.add_argument('-f', '--folder', action='store', help = 'The name of the folder you want to store the data in.')
+args = my_parser.parse_args()
+data_folder_name = args.folder
 
 def make_clean_folder(path_folder):
     if not os.path.exists(path_folder):
@@ -19,7 +24,8 @@ def make_clean_folder(path_folder):
 
 
 def record_rgbd():
-    make_clean_folder("../data/realsense/")
+    folder_path = os.path.join("data", data_folder_name)
+    make_clean_folder(folder_path)
 
     pipeline = rs.pipeline()
 
