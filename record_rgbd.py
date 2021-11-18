@@ -23,7 +23,7 @@ def make_clean_folder(path_folder):
 
 
 
-def record_rgbd():
+def record_rgbd(data_folder_name):
     folder_path = os.path.join("data", data_folder_name)
     make_clean_folder(folder_path)
 
@@ -71,14 +71,15 @@ def record_rgbd():
 
         color_image = color_image[..., ::-1]
 
-        imageio.imwrite("../data/realsense/depth.png", depth_image)
-        imageio.imwrite("../data/realsense/rgb.png", color_image)
+        imageio.imwrite(os.path.join(folder_path, "depth.png"), depth_image)
+        imageio.imwrite(os.path.join(folder_path, "rgb.png"), color_image)
 
     finally:
+        print("Stopping program!")
         pipeline.stop()
 
     return color_image, depth_image
 
 
 if __name__ == "__main__":
-    record_rgbd()
+    record_rgbd(data_folder_name)
