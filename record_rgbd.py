@@ -4,6 +4,8 @@ import pyrealsense2 as rs
 import os
 import shutil
 import argparse
+import keyboard
+from time import localtime, strftime
 
 my_parser = argparse.ArgumentParser()
 my_parser.add_argument('-f', '--folder', action='store', help = 'The name of the folder you want to store the data in.')
@@ -47,36 +49,52 @@ def record_rgbd(data_folder_name):
     align_to = rs.stream.color
     align = rs.align(align_to)
 
-    try:
-        frames = pipeline.wait_for_frames()
-        aligned_frames = align.process(frames)
-        aligned_depth_frame = aligned_frames.get_depth_frame()
-        color_frame = aligned_frames.get_color_frame()
+    while True:
 
-        if not aligned_depth_frame or not color_frame:
-            raise RuntimeError("Could not acquire depth or color frames.")
+        user_input = input("Press C (and Enter) to capture a foto or Q (and Enter) to shut down the program!")
 
-        depth_image = np.asanyarray(aligned_depth_frame.get_data())
-        color_image = np.asanyarray(color_frame.get_data())
+        if user_input.lower() == "c":
+            try:
+                frames = pipeline.wait_for_frames()
+                aligned_frames = align.process(frames)
+                aligned_depth_frame = aligned_frames.get_depth_frame()
+                color_frame = aligned_frames.get_color_frame()
 
-        grey_color = 153
-        depth_image_3d = np.dstack(
-            (depth_image, depth_image, depth_image)
-        )  # Depth image is 1 channel, color is 3 channels
-        bg_removed = np.where(
-            (depth_image_3d > clipping_distance) | (depth_image_3d <= 0),
-            grey_color,
-            color_image,
-        )
+                if not aligned_depth_frame or not color_frame:
+                    raise RuntimeError("Could not acquire depth or color frames.")
 
-        color_image = color_image[..., ::-1]
+                depth_image = np.asanyarray(aligned_depth_frame.get_data())
+                color_image = np.asanyarray(color_frame.get_data())
 
-        imageio.imwrite(os.path.join(folder_path, "depth.png"), depth_image)
-        imageio.imwrite(os.path.join(folder_path, "rgb.png"), color_image)
+                grey_color = 153
+                depth_image_3d = np.dstack(
+                    (depth_image, depth_image, depth_image)
+                )  # Depth image is 1 channel, color is 3 channels
+                bg_removed = np.where(
+                    (depth_image_3d > clipping_distance) | (depth_image_3d <= 0),
+                    grey_color,
+                    color_image,
+                )
 
-    finally:
-        print("Stopping program!")
-        pipeline.stop()
+                color_image = color_image[..., ::-1]
+
+                current_time = strftime("%Y%m%d_%H%M%S", localtime())
+                depth_filename = current_time + "_depth.png"
+                rgb_filename = current_time + "_rgb.png"
+
+                imageio.imwrite(os.path.join(folder_path, depth_filename), depth_image)
+                imageio.imwrite(os.path.join(folder_path, rgb_filename), color_image)
+
+            finally:
+                print(f"RGB image written to {os.path.join(folder_path, rgb_filename)}!")
+                print(f"Depth image written to {os.path.join(folder_path, depth_filename)}!")
+
+        elif user_input.lower() == "q":
+            print("Stopping program!")
+            pipeline.stop()
+
+        else: 
+            print("Input not recognised, try again!")
 
     return color_image, depth_image
 
