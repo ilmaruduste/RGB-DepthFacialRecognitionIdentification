@@ -49,7 +49,9 @@ def record_rgbd(data_folder_name):
     align_to = rs.stream.color
     align = rs.align(align_to)
 
-    while True:
+    program_is_looping = True
+
+    while program_is_looping:
 
         user_input = input("Press C (and Enter) to capture a foto or Q (and Enter) to shut down the program!")
 
@@ -92,6 +94,7 @@ def record_rgbd(data_folder_name):
         elif user_input.lower() == "q":
             print("Stopping program!")
             pipeline.stop()
+            program_is_looping = False
 
         else: 
             print("Input not recognised, try again!")
