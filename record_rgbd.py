@@ -15,13 +15,11 @@ data_folder_name = args.folder
 def make_clean_folder(path_folder):
     if not os.path.exists(path_folder):
         os.makedirs(path_folder)
-    else:
-        user_input = input("%s not empty. Overwrite? (y/n) : " % path_folder)
-        if user_input.lower() == "y":
-            shutil.rmtree(path_folder)
-            os.makedirs(path_folder)
-        else:
-            exit()
+    # else:
+    #     user_input = input("%s not empty. Overwrite? (y/n) : " % path_folder)
+    #     if user_input.lower() == "y":
+    #         shutil.rmtree(path_folder)
+    #         os.makedirs(path_folder)
 
 
 
