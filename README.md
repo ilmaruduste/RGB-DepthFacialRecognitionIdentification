@@ -2,6 +2,19 @@
 <b>Students:</b> Ilmar Uduste, Eslem Güler, Christian Johansen
 <br><b>Course:</b> Computer Vision, POVa, Brno University of Technology
 
+## Intel Realsense Depth Camera
+
+To capture RGB and depth photos at the same time, we used an Intel Realsense Depth Camera with a resolution of 720p. Since the project team all had Macs, then we had loads of issues actually getting it running, but we finally managed it using Parallels to get a virtual machine running in Ubuntu. Here's an example of a RGB-D image pair:
+
+![Depth picture](./picture_data/example_picture_d.png)
+![RGB picture](./picture_data/example_picture_rgb.png)
+
+The depth picture values each pixel with the distance in meters for that particular pixel. Bear in mind that these values are integers, so in a profile picture, the entire face might be just one contour. Here's the same depth picture with normalized values:
+
+![Processed depth picture](./picture_data/example_picture_d_processed.png)
+
+The inaccuracy of the depth image leads to the depth information being unusable in actual facial recognition or identification.
+
 ## Project plan
 <ol>
   <li>Get a dataset of images with faces</li>
